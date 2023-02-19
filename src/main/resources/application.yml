@@ -1,17 +1,21 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/divide
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: jdbc:mysql://localhost:3306/divide?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    username: root
+    password: ansalsdn15
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  servlet:
+    multipart:
+      location: file.dir=C:/Users/mmw10/IdeaProjects/toy project/file/
 
   jpa:
+    defer-datasource-initialization: true
     hibernate:
       ddl-auto: create
     properties:
       hibernate:
         format_sql: true
-        default_batch_fetch_size: 100
 
 logging.level:
+  com.project.divide: debug
   org.hibernate.SQL: debug

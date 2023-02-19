@@ -2,12 +2,14 @@ package com.project.divide.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import static jakarta.persistence.FetchType.LAZY;
+import static jakarta.persistence.FetchType.*;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -18,32 +20,26 @@ public class Member extends BaseEntity {
     @Column(name = "member_id")
     private Long id;
 
-    @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @OneToMany(mappedBy = "member", fetch = LAZY)
+    private List<GroupMember> groupMembers = new ArrayList<>();
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "group_id")
-    private Group group;
+    private String email; //이메일
+    private String password; //패스워드
+    private UploadFile memberImage; //회원 이미지
 
-    @OneToMany(mappedBy = "member")
-    private List<Role> roles;
-
-    private String nickname; //그룹 내 별명
-
-    @Enumerated(EnumType.STRING)
-    private Permission permission; //권한
-
-    //연관관계
-    public void changeUser(User user) {
-        this.user = user;
-        user.changeMember(this);
+    @Builder
+    public Member(String email, String password) {
+        this.email = email;
+        this.password = password;
     }
 
-    public void changeGroup(Group group) {
-        this.group = group;
-        group.getMembers().add(this);
+    //연관관계 메서드
+    public void addGroupMember(GroupMember groupMember) {
+        groupMembers.add(groupMember);
+        groupMember.changeMember(this);
     }
+
+    //비즈니스 로직
 
 
 }

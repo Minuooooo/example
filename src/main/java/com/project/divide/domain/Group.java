@@ -5,9 +5,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "`group`")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Group extends BaseEntity {
@@ -17,7 +19,7 @@ public class Group extends BaseEntity {
     private Long id;
 
     @OneToMany(mappedBy = "group")
-    private List<Member> members;
+    private List<GroupMember> groupMembers = new ArrayList<>();
 
     private String groupName; //그룹명
     private String link; //링크
