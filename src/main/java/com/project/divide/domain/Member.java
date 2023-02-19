@@ -20,7 +20,7 @@ public class Member extends BaseEntity {
     @Column(name = "member_id")
     private Long id;
 
-    @OneToMany(mappedBy = "member", fetch = LAZY)
+    @OneToMany(mappedBy = "member")
     private List<GroupMember> groupMembers = new ArrayList<>();
 
     private String email; //이메일
