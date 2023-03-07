@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jakarta.persistence.FetchType.*;
-
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -21,11 +19,10 @@ public class Member extends BaseEntity {
     private Long id;
 
     @OneToMany(mappedBy = "member")
-    private List<GroupMember> groupMembers = new ArrayList<>();
+    private List<GroupMemberMap> groupMemberMaps = new ArrayList<>();
 
     private String email; //이메일
     private String password; //패스워드
-    private UploadFile memberImage; //회원 이미지
 
     @Builder
     public Member(String email, String password) {
@@ -34,9 +31,9 @@ public class Member extends BaseEntity {
     }
 
     //연관관계 메서드
-    public void addGroupMember(GroupMember groupMember) {
-        groupMembers.add(groupMember);
-        groupMember.changeMember(this);
+    public void addGroupMember(GroupMemberMap groupMemberMap) {
+        groupMemberMaps.add(groupMemberMap);
+        groupMemberMap.changeMember(this);
     }
 
     //비즈니스 로직

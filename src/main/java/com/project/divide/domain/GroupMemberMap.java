@@ -13,7 +13,7 @@ import static jakarta.persistence.FetchType.LAZY;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class GroupMember extends BaseEntity {
+public class GroupMemberMap extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name = "group_member_id")
@@ -28,9 +28,10 @@ public class GroupMember extends BaseEntity {
     private Group group;
 
     @OneToMany(mappedBy = "groupMember")
-    private List<Role> roles = new ArrayList<>();
+    private List<GroupMemberRoleMap> groupMemberRoleMaps = new ArrayList<>();
 
     private String nickname; //그룹 내 별명
+    private UploadFile groupMemberImage; //그룹 내 프로필 이미지
 
     @Enumerated(EnumType.STRING)
     private Permission permission; //권한

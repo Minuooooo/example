@@ -19,9 +19,12 @@ public class Group extends BaseEntity {
     private Long id;
 
     @OneToMany(mappedBy = "group")
-    private List<GroupMember> groupMembers = new ArrayList<>();
+    private List<GroupMemberMap> groupMemberMaps = new ArrayList<>();
+
+    @OneToMany(mappedBy = "group")
+    private List<Tag> tags = new ArrayList<>();
 
     private String groupName; //그룹명
     private String link; //링크
-    private String groupImage; //그룹 이미지 경로
+    private UploadFile groupImage; //그룹 이미지
 }
